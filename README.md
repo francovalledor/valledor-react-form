@@ -15,14 +15,52 @@ npm install --save valledor-react-form
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'valledor-react-form'
-import 'valledor-react-form/dist/index.css'
+import SimpleForm from 'valledor-react-form'
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
+function SignInForm(props) {
+  fields.push({
+    name: "username",
+    type: "text",
+    placeholder: "Username",
+    required: true
+  })
+
+  fields.push({
+    name: "password",
+    type: "password",
+    placeholder: "Password",
+    note: "must include letters in mixed case and numbers"
+  })
+
+    fields.push({
+    name: "submit",
+    type: "submit",
+    value: "Sign In",
+    required: true
+  })
+
+    function onSubmit(e) {
+      formData = new FormData(e.target)
+      validate(formData)
+      ...
+
   }
+
+  ///Optional
+    function onChange(e) {
+      console.log('field: ', e.target.name)
+      console.log('value: ', e.target.value)
+    }
+
+  return <SimpleForm
+              onChange={onChange}   //optional
+              onSubmit={onSubmit}   //optional
+              title="Sign Up"       //optional
+              fields={fields}       //required
+          />
 }
+
+### It is recommended to use bootstrap. SimpleForm is bootstrap formatted.
 ```
 
 ## License
