@@ -33,6 +33,17 @@ function SignInForm(props) {
   })
 
     fields.push({
+    name: "gender",
+    type: "select",
+    label: "gender"
+    options: [
+      {value: "M", text:"M"},
+      {value: "F", text:"F"},
+      {value: "NB", text:"NB"}
+    ]
+  })
+
+    fields.push({
     name: "submit",
     type: "submit",
     value: "Sign In",

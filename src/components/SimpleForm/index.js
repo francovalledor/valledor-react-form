@@ -1,13 +1,10 @@
-import React from 'react'
+import React from "react";
 import {
-    renderInvalidMessage,
-    renderLabel,
-    renderNote,
-    renderTitle,
-    renderTypeGeneral,
-    renderTypeSubmit,
-    renderValidMessage
-} from './utils';
+  renderTitle,
+  renderTypeGeneral,
+  renderTypeSelect,
+  renderTypeSubmit
+} from "./utils";
 
 /**
  * ## Create a simple form
@@ -26,59 +23,63 @@ import {
  * @param {function} [onChange] - optional function for fields change handling
  * @param {function} [onSubmit] - optional function for form submit handling
  * @param {function} [onBlur] - optional function for focus out handling
- * @version 1.0.0
+ * @version 1.0.3
  * @author [Franco Valledor](https://github.com/francovalledor)
  */
 export function SimpleForm(props) {
   // FUNCTIONS
   // Validations
   function checkParams() {
-    let itsOK = true
+    let itsOK = true;
 
     if (!props.fields || !props.fields.map) {
-      itsOK = false
+      itsOK = false;
     }
 
-    return itsOK
+    return itsOK;
   }
 
   // Event Handlers
   function handleChange(e) {
     if (props.onChange) {
-      props.onChange(e)
+      props.onChange(e);
     }
   }
 
   function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     if (props.onSubmit) {
-      props.onSubmit(e)
+      props.onSubmit(e);
     }
   }
 
   function handleFocusOut(e) {
     if (props.onBlur) {
-      props.onBlur(e)
+      props.onBlur(e);
     }
   }
 
-
   function renderFields(fields) {
-    let index = 1
+    let index = 1;
     return props.fields.map((field) => {
-      let classes = 'form-control'
+      let classes = "form-control";
       if (field.isValid === true) {
-        classes += ' is-valid'
+        classes += " is-valid";
       } else if (field.isValid === false) {
-        classes += ' is-invalid'
+        classes += " is-invalid";
       }
 
-      if (field.type.toLowerCase() === 'submit') {
-        return renderTypeSubmit(field, classes, index)
-      } else {
-        return renderTypeGeneral(field, classes, index)
+      switch (field.type.toLowerCase()) {
+        case "submit":
+          return renderTypeSubmit(field, classes, index);
+
+        case "select":
+          return renderTypeSelect(field, classes, index);
+
+        default:
+          return renderTypeGeneral(field, classes, index);
       }
-    })
+    });
   }
 
   /**
@@ -91,17 +92,14 @@ export function SimpleForm(props) {
         onChange={handleChange}
         onBlur={handleFocusOut}
       >
-          <h1>
-              Hola
-          </h1>
         {renderTitle(props)}
         {renderFields(props.fields)}
       </form>
-    )
+    );
   } else {
-    console.error('CreateForm: Missing params')
-    return ''
+    console.error("CreateForm: Missing params");
+    return "";
   }
 }
 
-export default SimpleForm
+export default SimpleForm;

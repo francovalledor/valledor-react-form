@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 
 export function renderTypeSubmit(field, classes, index) {
   return (
@@ -52,7 +52,6 @@ export function renderTypeSelect(field, classes, index) {
   }
 
   return (
-    <>
       <div key={field.name} className="form-group">
         {renderLabel(field)}
         <select
@@ -69,7 +68,6 @@ export function renderTypeSelect(field, classes, index) {
         {renderValidMessage(field)}
         {renderInvalidMessage(field)}
       </div>
-    </>
   );
 }
 
